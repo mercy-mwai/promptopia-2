@@ -1,26 +1,6 @@
-/*import '../styles/globals.css'; // Use relative path
-
-
-export const metaData ={
-    title: "Promptopia",
-    decription:"Discover & share AI prompts"
-}
-const RootLayout = ({children}) => {
-  return (
-  <html lang='en'>
-    <div className='main'>
-        <div className='gradient' />
-    </div>
-    
-    <main className='app'>
-        {children}
-    </main>
-  </html>
-  )
-}
-
-export default RootLayout;*/
 import '../styles/globals.css'; // Use relative path
+import Nav from '@/components/Nav';
+import Provider from '@/components/Provider';
 
 export const metaData = {
   title: 'Promptopia',
@@ -35,7 +15,9 @@ const RootLayout = ({ children }) => {
           <div className="gradient" />
         </div>
 
-        <main className="app">{children}</main>
+        <main className="app">
+          <Nav />
+          {children}</main>
       </body>
     </html> // Remove the extra space or newline here
   );
