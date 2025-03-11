@@ -13,10 +13,7 @@ module.exports = {
       },
       colors: {
         'primary-orange': '#FF5722',
-      },
-      spacing: {
-        '16': '4rem',
-      },
+      }
     },
   },
   plugins: [],
