@@ -124,8 +124,10 @@ const Nav = () => {
                   onClick={() => {
                     signIn(provider.id);
                   }}
+                  
                   className='black_btn'
                 >
+                  console.log($`{provider.id}`)
                   Sign in
                 </button>
               ))}
