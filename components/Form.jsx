@@ -7,6 +7,16 @@ const Form = ({type, post,submitting,handleSubmit}) => {
       <p className="desc text-left">
         {type} and share amazing prompts with the world, and let your imagination run wild with an AI-powered prompt
       </p>
+      <form
+      onClick={handleSubmit}
+      className="mt-10 w-full max-w-2xl flex flex-col gap-7 glassmorphism"
+      >
+        <label>
+          <span className="font-satoshi font-semibold text-base text-gray-700">
+              
+          </span>
+        </label>
+      </form>
     </section>
   )
 }
