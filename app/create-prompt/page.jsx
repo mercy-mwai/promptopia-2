@@ -39,7 +39,6 @@ const CreatePrompt = () => {
    post={post}
    submitting={submitting}
    handleSubmit={createPrompt}
-   
     />
   );
 }
