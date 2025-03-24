@@ -1,4 +1,4 @@
-/*import { connectToDB } from "@/utils/database";
+import { connectToDB } from "@/utils/database";
 import Prompt from "@/models/prompt";
 
 export const POST = async (req) => {
@@ -15,6 +15,6 @@ export const POST = async (req) => {
   } catch (error) {
     return new Response("Failed to create prompt" , {status:500})
   }
-};*/
+};
 
 
