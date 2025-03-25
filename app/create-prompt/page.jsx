@@ -6,15 +6,8 @@ import {useRouter} from  "next/navigation";
 
 import Form from '../../components/Form';
 
-const CreatePrompt = () => {
-  const [submitting ,setIsSubmitting]=useState(false);
-  const [post, setPost]=useState({
-    prompt: '',
-    tag:'',
-  });
+
   const CreatePrompt = () => {
-    const { data: session } = useSession(); // Ensure the session is retrieved correctly
-    const router = useRouter(); // Add the router here
     const [submitting, setIsSubmitting] = useState(false);
     const [post, setPost] = useState({
       prompt: '',
@@ -28,10 +21,9 @@ const CreatePrompt = () => {
       try {
         const response = await fetch('/api/prompt', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' }, // Add headers to specify JSON content
           body: JSON.stringify({
             prompt: post.prompt,
-            userId: session?.user.id, // Ensure session exists
+            userId: session?.user.id, 
             tag: post.tag,
           }),
         });
@@ -46,18 +38,17 @@ const CreatePrompt = () => {
       }
     };
   
-    // Return must be outside the function
     return (
       <Form
         type="Create"
         post={post}
         submitting={submitting}
         handleSubmit={createPrompt}
-        setPost={setPost} // Pass setPost to the Form component
+        setPost={setPost} 
       />
     );
   };
-};
+
   
   export default CreatePrompt;
   
