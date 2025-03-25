@@ -6,8 +6,8 @@ import {useRouter} from  "next/navigation";
 
 import Form from '../../components/Form';
 
-
   const CreatePrompt = () => {
+    /*console.log('Rendering CreatePrompt...');*/
     const router=useRouter();
     const { data: session } = useSession();
 
@@ -16,9 +16,15 @@ import Form from '../../components/Form';
       prompt: '',
       tag: '',
     });
-  
+    
     const createPrompt = async (e) => {
       e.preventDefault();
+      /*console.log('Submitting:', {
+        userId: session?.user?.id,
+        prompt: post.prompt,
+        tag: post.tag,
+      });*/
+      
       setIsSubmitting(true);
   
       try {
@@ -26,7 +32,7 @@ import Form from '../../components/Form';
           method: 'POST',
           body: JSON.stringify({
             prompt: post.prompt,
-            userId: session?.user.id, 
+            userid: session?.user?.id, 
             tag: post.tag,
           }),
         });
