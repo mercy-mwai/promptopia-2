@@ -10,9 +10,10 @@ const MyProfile = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch(`api/prompt/user${session?.user.id}/posts`);
+      console.log("Session data:", session);
+      const response = await fetch(`/api/prompt/user/${session?.user.id}`);
       const data = await response.json();
-
+      console.log("Fetched posts:", data);
       setPosts(data);
     };
 
@@ -20,8 +21,12 @@ const MyProfile = () => {
     if (session?.user.id) fetchPosts();
   }, []);
 
-  const handleEdit = () => {};
-  const handleDelete = async () => {};
+  const handleEdit = () => {
+
+  };
+  const handleDelete = async () => {
+
+  };
 
   return (
     <Profile
