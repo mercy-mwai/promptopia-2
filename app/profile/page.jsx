@@ -11,15 +11,14 @@ const MyProfile = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       console.log("Session data:", session);
-      /*const response=await fetch(`/api/prompt/user/${userid}`)*/
       const response=await fetch(`/profile/${session?.user.id}/posts`)
       console.log(session?.user.id);
       const data = await response.json();
-      console.log("Fetched posts:", data);
+      /*console.log("Fetched posts:", data);*/
       setPosts(data);
     };
 
-    console.log("data");
+    /*console.log("data");*/
     if (session?.user.id) fetchPosts();
   }, []);
 
