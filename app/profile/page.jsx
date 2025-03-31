@@ -6,18 +6,22 @@ import { useRouter } from "next/router";
 import Profile from "@/components/Profile";
 
 const MyProfile = () => {
-  const { data: session } = useSession();
+  /*const { data: session } = useSession();*/
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const fetchPosts = async () => {
       console.log("Session data:", session);
-      const response = await fetch(`/api/prompt/user/${session?.user.id}`);
+      /*const response = await fetch(`/api/prompt/user/${session?.user.id}`);*/
+    /*const variableUser=session?.user.id;*/
+    console.log("Variable User:", variableUser);
+      const response = await fetch('/profile/variableUser/posts');
+      console.log(session?.user.id);
       const data = await response.json();
       console.log("Fetched posts:", data);
       setPosts(data);
     };
 
-    console.log("data");
+    console.log(data);
     if (session?.user.id) fetchPosts();
   }, []);
 
