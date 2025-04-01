@@ -19,7 +19,7 @@ export const PATCH=async (request, {params})=>{
     try{
         const existingPrompt= await Prompt.findById(params.id);
 
-        if(!existingPrompt) return new response("Prompt not found" ,{status:404});
+        if(!existingPrompt) return new Response("Prompt not found" ,{status:404});
         existingPrompt.prompt=prompt;
         existingPrompt.tag=tag;
 
