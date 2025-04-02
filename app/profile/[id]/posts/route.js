@@ -1,12 +1,18 @@
 import { connectToDB } from "@/utils/database";
 import Prompt from "@/models/prompt";
 
-export const GET= async(request, {params})=>{
+export const GET= async(request, context)=>{
 try{
 
     await connectToDB();
+
+    const { params } = context; // ✅ Correctly extracting `params`
+    if (!params?.id) {
+      return new Response("Missing user ID", { status: 400 });
+    }
+
     const prompts = await Prompt.find({
-        creator:params.id
+        creator: params.id
     }).populate('creator');
     console.log(prompts);
     

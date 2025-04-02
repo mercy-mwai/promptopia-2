@@ -2,9 +2,16 @@ import { connectToDB } from "@/utils/database";
 import Prompt from "@/models/prompt";
 
 //GET read
-export const GET= async(request, {params})=>{
+
+
+export const GET= async(request, context)=>{
 try{
     await connectToDB();
+    const { params } = context; // ✅ Correctly extracting `params`
+    if (!params?.id) {
+      return new Response("Missing user ID", { status: 400 });
+    }
+     
     const prompt = await Prompt.findById(params.id).populate('creator');
     if(!prompt) return new response ("Prompt not found", {status:404});
     return new Response (JSON.stringify(prompt),{status:200}); 
@@ -15,11 +22,12 @@ try{
 
 //PATCH update
 export const PATCH=async (request, {params})=>{
-    const { prompt, tag } = await request.json();
+    const {prompt, tag } = await request.json();
     try{
         const existingPrompt= await Prompt.findById(params.id);
 
         if(!existingPrompt) return new Response("Prompt not found" ,{status:404});
+        
         existingPrompt.prompt=prompt;
         existingPrompt.tag=tag;
 
@@ -31,7 +39,7 @@ export const PATCH=async (request, {params})=>{
 }
 
 //DELETE delete
-export  const DELETE =async (request, {params})=>{
+export const DELETE =async (request, {params})=>{
     try{
         await connectToDB();
         await Prompt.findByIdAndRemove(params.id);
