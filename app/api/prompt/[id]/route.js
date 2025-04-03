@@ -4,14 +4,13 @@ import Prompt from "@/models/prompt";
 //GET read
 
 
-export const GET= async(request, context)=>{
+export const GET= async(request, {params})=>{
 try{
     await connectToDB();
-    const { params } = context; // ✅ Correctly extracting `params`
+  
     if (!params?.id) {
-      return new Response("Missing user ID", { status: 400 });
+      return new Response("Missing prompt ID", { status: 400 });
     }
-     
     const prompt = await Prompt.findById(params.id).populate('creator');
     if(!prompt) return new response ("Prompt not found", {status:404});
     return new Response (JSON.stringify(prompt),{status:200}); 
