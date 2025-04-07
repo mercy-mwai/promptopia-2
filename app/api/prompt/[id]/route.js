@@ -8,7 +8,7 @@ export const GET = async (request, { params }) => {
     await connectToDB();
     const { id } = await params
 
-    const prompt = await Prompt.findById(params.id).populate("creator");
+    const prompt = await Prompt.findById(id).populate("creator");
     if (!prompt) return new response("Prompt not found", { status: 404 });
     return new Response(JSON.stringify(prompt), { status: 200 });
   } catch (error) {
@@ -21,12 +21,13 @@ export const PATCH = async (request, { params }) => {
  
   try {
     await connectToDB();
+    const { id } = await params;
     const { prompt, tag } = await request.json();
-    if (!params?.id) {
+    if (!id) {
       return new Response("Prompt ID is missing", { status: 400 });
     }
 
-    const existingPrompt = await Prompt.findById(params.id);
+    const existingPrompt = await Prompt.findById(id);
 
     if (!existingPrompt)
       return new Response("Prompt not found", { status: 404 });
@@ -45,7 +46,6 @@ export const PATCH = async (request, { params }) => {
 export const DELETE = async (request, {params}) => {
   try {
     await connectToDB();
-
     const { id } = await params
     console.log("Received params:", params);
 

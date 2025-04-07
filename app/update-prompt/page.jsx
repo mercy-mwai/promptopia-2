@@ -26,7 +26,8 @@ const UpdatePrompt = () => {
     if (!promptId) return alert("Prompt ID not found");
 
     try {
-      const response = await fetch(`/api/prompt/${prompt._id}`, {
+      console.log("Sending request to update prompt:", promptId);
+      const response = await fetch(`/api/prompt/${promptId}`, {
         method: "PATCH",
         body: JSON.stringify({
           prompt: post.prompt,
@@ -36,15 +37,15 @@ const UpdatePrompt = () => {
 
       console.log("Response status:", response.status); // ✅ Log response status
 
-      //if (response.ok) {
-        //setIsSubmitting(false); 
-        //const updatedPrompt = await response.json(); 
-        //console.log("Updated prompt data:", updatedPrompt);
-        //setTimeout(() => {
-          //console.log("Redirecting to home...");
-            //router.push('/');
-          //}, 500);
-        //}
+/*       if (response.ok) {
+        setIsSubmitting(false); 
+        const updatedPrompt = await response.json(); 
+        console.log("Updated prompt data:", updatedPrompt);
+        setTimeout(() => {
+          console.log("Redirecting to home...");
+            router.push('/');
+          }, 500);
+        } */
       } 
      catch (error) {
       console.log(error);
