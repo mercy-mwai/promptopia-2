@@ -3,48 +3,56 @@ import Prompt from "@/models/prompt";
 
 //GET read
 
-
-export const GET= async(request, {params})=>{
-try{
+export const GET = async (request, { params }) => {
+  try {
     await connectToDB();
-  
+
     if (!params?.id) {
       return new Response("Missing prompt ID", { status: 400 });
     }
-    const prompt = await Prompt.findById(params.id).populate('creator');
-    if(!prompt) return new response ("Prompt not found", {status:404});
-    return new Response (JSON.stringify(prompt),{status:200}); 
-}catch(error){
-    return new Response ("Failed to fetch all prompts",{status:500});
-}
-}
+    const prompt = await Prompt.findById(params.id).populate("creator");
+    if (!prompt) return new response("Prompt not found", { status: 404 });
+    return new Response(JSON.stringify(prompt), { status: 200 });
+  } catch (error) {
+    return new Response("Failed to fetch all prompts", { status: 500 });
+  }
+};
 
 //PATCH update
-export const PATCH=async (request, {params})=>{
-    const {prompt, tag } = await request.json();
-    try{
-        const existingPrompt= await Prompt.findById(params.id);
+export const PATCH = async (request, { params }) => {
+  const { prompt, tag } = await request.json();
+  try {
+    const existingPrompt = await Prompt.findById(params.id);
 
-        if(!existingPrompt) return new Response("Prompt not found" ,{status:404});
-        
-        existingPrompt.prompt=prompt;
-        existingPrompt.tag=tag;
+    if (!existingPrompt)
+      return new Response("Prompt not found", { status: 404 });
 
-        await existingPrompt.save();
-        return new Response(JSON.stringify(existingPrompt), {status: 200});
-    }catch(error){
-        return new Response ("Failed to Update prompt", {status:500});
-    }
-}
+    existingPrompt.prompt = prompt;
+    existingPrompt.tag = tag;
+
+    await existingPrompt.save();
+    return new Response(JSON.stringify(existingPrompt), { status: 200 });
+  } catch (error) {
+    return new Response("Failed to Update prompt", { status: 500 });
+  }
+};
 
 //DELETE delete
-export const DELETE =async (request, {params})=>{
-    try{
-        await connectToDB();
-        await Prompt.findByIdAndRemove(params.id);
+export const DELETE = async (request, context) => {
+  try {
+    await connectToDB();
 
-        return new Response("Prompt deleted successfully", {status:200})
-    }catch(error){
-        return new Response ("Failed to delete prompt", {status:500})
+    
+    const id = context.params.id;
+    console.log("Received params:", params);
+    if (!id) {
+      return new Response("Prompt ID is missing", { status: 400 });
     }
-}
+    
+    await Prompt.findByIdAndRemove(params.id);
+
+    return new Response("Prompt deleted successfully", { status: 200 });
+  } catch (error) {
+    return new Response("Failed to delete prompt", { status: 500 });
+  }
+};

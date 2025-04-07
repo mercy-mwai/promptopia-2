@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
@@ -11,9 +11,9 @@ const MyProfile = () => {
   const [posts, setPosts] = useState([]);
   useEffect(() => {
     const fetchPosts = async () => {
-      console.log("Session data:", session);
-      const response=await fetch(`/profile/${session?.user.id}/posts`)
-      console.log(session?.user.id);
+      /* console.log("Session data:", session);*/
+      const response = await fetch(`/profile/${session?.user.id}/posts`);
+      /*console.log(session?.user.id);*/
       const data = await response.json();
       /*console.log("Fetched posts:", data);*/
       setPosts(data);
@@ -27,7 +27,20 @@ const MyProfile = () => {
     router.push(`/update-prompt?id=${post._id}`);
   };
   const handleDelete = async (post) => {
-
+    const hasConfirmed = confirm(
+      "Are you sure you want to delete thos prompt?"
+    );
+    if (hasConfirmed) {
+      try {
+        await fetch(`/api/prompt/${post._id.toString()}`, {
+          method: "DELETE",
+        });
+        const filteredPosts=posts.filter((p)=>p._id !==post._id);
+        setPosts(filteredPosts);
+      } catch (error) {
+        console.log(error);
+      }
+    }
   };
 
   return (
