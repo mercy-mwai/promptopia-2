@@ -5,7 +5,6 @@ import{useState, useEffect} from 'react';
 import PromptCard from './PromptCard';
 
 const PromptCardList=({data, handleTagClick})=>{
-  const [searchText, setSearchText] = useState('');
   
   return(
     <div className='mt-16 prompt_layout'>
@@ -21,12 +20,12 @@ const PromptCardList=({data, handleTagClick})=>{
 }
 
 const Feed = () => {
+  const [posts, setPosts] = useState([]);
+
+  //search
   const [searchText, setSearchText]=useState('');
-  const [posts, setPosts] = useState([])
-
-  const handleSearchChange=(e)=>{
-
-  }
+  const [searchTimeout, setSearchTimeout] = useState(null);
+  const [searchedResults, setSearchedResults] = useState([]);
 
   useEffect(()=>{
     const fetchPosts=async()=> {
@@ -35,10 +34,18 @@ const Feed = () => {
 
       setPosts(data)
     }
-
     console.log("data");
     fetchPosts();
   },[]);
+
+  // const filterPrompts=(searchText)=>{
+  //   const regex= new RegExp(searchText, "i");
+  //   return posts.filter((item))
+  //   .filter((item)=>regex.test(item.tag) || regex.test(item.prompt) || regex.test(item.creator.username));
+  // }
+  // const handleSearchChange=(e)=>{
+
+  // }
 
   return (
     <section className='feed'>
@@ -46,8 +53,8 @@ const Feed = () => {
           <input 
           type='text'
           placeholder='Search for a tag or a username'
-          value={searchText}
-          onChange={handleSearchChange}
+          // value={searchText}
+          // onChange={handleSearchChange}
           required
           className='search_input peer'
           />
