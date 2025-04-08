@@ -12,6 +12,7 @@ export const POST = async (req) => {
       prompt,
       tag,
     });
+    console.log("POST data:", { userid, prompt, tag });
     await newPrompt.save();
     /*console.log("Prompt created:", newPrompt);*/
     return new Response(JSON.stringify(newPrompt),{status:201})

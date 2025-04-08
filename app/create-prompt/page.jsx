@@ -24,15 +24,23 @@ import Form from '../../components/Form';
         prompt: post.prompt,
         tag: post.tag,
       });*/
+
+      if (!post.prompt || !post.tag) {
+        alert('Please fill in both the prompt and tag fields.');
+        setIsSubmitting(false);
+        return;
+      }
+    
       
       setIsSubmitting(true);
   
       try {
-        const response = await fetch('/api/prompt/new', {
+        console.log("Submitting prompt:", session?.user.id, post.prompt, post.tag);
+        const response = await fetch("api/prompt/new", {
           method: 'POST',
           body: JSON.stringify({
             prompt: post.prompt,
-            userid: session?.user?.id, 
+            userid: session?.user.id, 
             tag: post.tag,
           }),
         });
