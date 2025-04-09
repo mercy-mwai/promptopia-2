@@ -38,14 +38,14 @@ const Feed = () => {
     fetchPosts();
   },[]);
 
-  // const filterPrompts=(searchText)=>{
-  //   const regex= new RegExp(searchText, "i");
-  //   return posts.filter((item))
-  //   .filter((item)=>regex.test(item.tag) || regex.test(item.prompt) || regex.test(item.creator.username));
-  // }
-  // const handleSearchChange=(e)=>{
+  const filterPrompts=(searchText)=>{
+    const regex= new RegExp(searchText, "i");
+    return posts.filter((item))
+    .filter((item)=>regex.test(item.tag) || regex.test(item.prompt) || regex.test(item.creator.username));
+  }
+  const handleSearchChange=(e)=>{
 
-  // }
+  }
 
   return (
     <section className='feed'>
@@ -53,8 +53,8 @@ const Feed = () => {
           <input 
           type='text'
           placeholder='Search for a tag or a username'
-          // value={searchText}
-          // onChange={handleSearchChange}
+          value={searchText}
+          onChange={handleSearchChange}
           required
           className='search_input peer'
           />
