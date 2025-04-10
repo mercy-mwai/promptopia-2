@@ -1,4 +1,4 @@
-import '../styles/globals.css'; // Use relative path
+import '../styles/globals.css'; 
 import Nav from '@/components/Nav';
 import Provider from '@/components/Provider';
 
@@ -21,7 +21,7 @@ const RootLayout = ({ children }) => {
           {children}</main>
           </Provider>
       </body>
-    </html> // Remove the extra space or newline here
+    </html>
   );
 };
 
